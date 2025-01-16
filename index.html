@@ -1,0 +1,223 @@
+
+<html>
+
+<HTML lang=pt_br><HEAD><TITLE>팡야 계산기</TITLE>
+<META charset=UTF-8>
+
+<STYLE>
+		#display-container {
+			width: 100%;
+			height: 100%;
+		}
+
+		#status-display {
+			position: absolute;
+			bottom: 100px;
+			right: 20px;
+			color: cyan;
+		}
+
+		#status-display ul {
+			list-style-type: none;
+		}
+
+		#stats {
+			position: absolute;
+			top: 15px;
+			left: 15px;
+		}
+
+		div .dg {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
+
+		.label {
+			grid-column: 1 / 2;
+		}
+
+		.input {
+			grid-column: 2 / 3;
+		}
+		
+		.container-grid {
+			display: grid;
+			grid-template-columns: auto 120px auto;
+			grid-row-gap: 5px;
+			grid-column-gap: 10px;
+			margin-bottom: 10px;
+		}
+	</STYLE>
+
+
+<SCRIPT>
+		function toggleView(el) {
+
+			let display = 'none';
+			let label = '보이기';
+			let top = el;
+
+			if (el.innerHTML.toUpperCase() == '보이기') {
+				display = 'grid';
+				label = '숨기기';
+			}
+
+			// set label
+			el.innerHTML = label;
+
+			while ((top = top.nextElementSibling)) {
+
+				if (top.nodeName !== 'SCRIPT')
+					top.style.display = display;
+			}
+		}
+	</SCRIPT>
+
+<META name=GENERATOR content="MSHTML 11.00.10570.1001"></HEAD>
+<BODY style="BACKGROUND-COLOR: blanchedalmond">
+<DIV id=display-container 
+style="DISPLAY: flex; align-items: center; flex-direction: column">
+<H1 style="MARGIN-BOTTOM: -30px"><B><TEXT style="FONT-SIZE: 49px"><TEXT 
+style="FONT-FAMILY: 'Bahnschrift'">팡야 계산기</B></TEXT></H1>
+<LABEL style="COLOR: maroon"><BR><TEXT style="FONT-SIZE: 25px">
+<CENTER><B><FONT color=GREEN>- Edit by Eternal - </FONT></B></CENTER></TEXT></LABEL>
+<DIV style="DISPLAY: flex; align-items: center; flex-direction: column">
+<DIV id=wedegt-config 
+style="PADDING-BOTTOM: 10px; PADDING-TOP: 10px; PADDING-LEFT: 10px; Z-INDEX: 10; DISPLAY: flex; PADDING-RIGHT: 10px; flex-direction: column">
+
+
+<DIV><LABEL style="COLOR: maroon"><BR><BR><TEXT style="FONT-SIZE: 15px"><B><FONT 
+color=#0080ff>오차 계산</FONT> </B></TEXT></LABEL><BUTTON 
+onclick=toggleView(this) id=toggleView>숨기기</BUTTON> 
+<DIV id=mycella class=container-grid style="PADDING-TOP: 10px"><LABEL 
+class=label>곱하는 수: </LABEL><INPUT id=x-slope class=input value=3.755> 
+<LABEL class=label>픽셀: </LABEL><INPUT id=px class=input> <FONT 
+color=#e8e7c6>A</FONT><FONT color=#000000>앵글<LABEL class=label>(각도): 
+</LABEL></FONT><INPUT id=align-degree class=input> <LABEL class=label>+/-: 
+</LABEL><SELECT id=slope-side class=input> <OPTION selected 
+  value=+1>+</OPTION> <OPTION value=-1>-</OPTION></SELECT> <INPUT onclick=calcMycella(this) type=reset value="오차적용"> 
+</DIV></DIV><BR>
+
+
+<DIV>
+<LABEL style="COLOR: maroon"><TEXT 
+style="FONT-SIZE: 20px"></LABEL><STRONG><FONT color=#800000><FONT 
+color=#0080ff>설정</FONT> </FONT></STRONG><BUTTON 
+onclick=toggleView(this) id=toggleView>숨기기</BUTTON> 
+<DIV class=container-grid 
+style="PADDING-TOP: 10px; grid-template-columns: auto 120px auto"><LABEL 
+class=label>해상도 선택: </LABEL><SELECT id=dis class=input> <OPTION selected 
+  value=1>선택하기</OPTION> <OPTION value=1>PB Grande</OPTION> <OPTION 
+  value=1.25>800x600 PB Pequeno</OPTION> <OPTION value=1.5>1280x720 PB 
+  Pequeno</OPTION> <OPTION value=1.875>1600x900 PB Pequeno</OPTION></SELECT> 
+</DIV>
+
+<DIV class=container-grid style="PADDING-TOP: 10px"><LABEL 
+class=label>파워 수치:</LABEL> 
+<INPUT id=power class=input value=36>&nbsp;<LABEL 
+class=label>아이템 추가 파워&nbsp;(y) :</LABEL> <INPUT id=auxpart_pwr class=input 
+value=4> <LABEL class=label>로로카드 추가 파워 (y) :</LABEL> <INPUT id=card_ps_pwr 
+class=input value=6> <LABEL class=label hidden>Card&nbsp;de Força 
+(y)&nbsp;:</LABEL> <INPUT id=card_pwr class=input value=0 hidden> <LABEL 
+class=label hidden>Mascote de Força&nbsp;:</LABEL> <INPUT id=mascot_pwr 
+class=input value=0 hidden>&nbsp;<LABEL class=label>나의 비거리&nbsp;:</LABEL> 
+<INPUT id=current_drive class=output style="COLOR: red" <text></TEXT> </DIV>
+<DIV style="grid-template-columns: 70px 120px auto"><BUTTON 
+onclick=checkdrive(this) style="HEIGHT: 50px; WIDTH: 250px"><B><TEXT 
+style="COLOR: red"><TEXT style="FONT-SIZE: 20px">비거리 결정</B></BUTTON> 
+</DIV></DIV><BR><BR>
+
+
+
+<LABEL style="COLOR: maroon"><BR><TEXT style="FONT-SIZE: 25px">
+<CENTER><B><FONT color=GREEN>- 클럽과 샷 / 선택 - </FONT></B></CENTER></TEXT></LABEL>
+<DIV class=container-grid style="PADDING-TOP: 10px"><LABEL class=label>클럽 선택&nbsp;: </LABEL><SELECT id=club class=input> 
+
+<OPTION selected   value=0>1W</OPTION> 
+<OPTION value=1>2W</OPTION> 
+<OPTION value=2>3W</OPTION> 
+<OPTION value=3>2I</OPTION> 
+<OPTION value=4>3I</OPTION> 
+<OPTION value=5>4I</OPTION> 
+<OPTION value=6>5I</OPTION> 
+<OPTION value=7>6I</OPTION> 
+<OPTION value=8>7I</OPTION> 
+<OPTION value=9>8I</OPTION> 
+<OPTION value=10>9I</OPTION> 
+<OPTION value=11>PW</OPTION> 
+<OPTION value=12>SW</OPTION>
+
+</SELECT>&nbsp;<LABEL class=label>샷 선택&nbsp;: 
+</LABEL><SELECT id=shot class=input> 
+<OPTION selected value=0>Dunk</OPTION> 
+<OPTION value=1>Tomahawk</OPTION> 
+<OPTION value=3>Cobra</OPTION>
+<OPTION value=2>Spike</OPTION> 
+
+
+</SELECT>&nbsp;
+<LABEL class=label>일반/파워샷 선택&nbsp;: </LABEL><SELECT id=power_shot class=input> 
+<OPTION selected   value=0>일반샷</OPTION> 
+<OPTION value=1>1 PS</OPTION> 
+<OPTION value=2>2 PS</OPTION> 
+<OPTION value=3>+15y</OPTION>
+</SELECT> </DIV>
+
+
+
+
+
+<LABEL style="COLOR: RED"><BR><TEXT style="FONT-SIZE: 25px">
+<CENTER><B><FONT color=RED>- 홀 정보 -</FONT></B></CENTER></TEXT></LABEL>
+
+<FORM>
+<DIV class=container-grid><BR><LABEL class=label>거리 : </LABEL><INPUT 
+id=distance class=input> <LABEL class=label>높이 : </LABEL><INPUT id=height 
+class=input> <LABEL class=label>바람 : </LABEL><INPUT id=wind class=input> 
+<LABEL class=label>각도 : </LABEL>
+<INPUT id=degree class=input> 
+<LABEL class=label>공기울기 : </LABEL>
+<INPUT id=slope_break class=input> 
+
+<LABEL class=label>지면상태(%) : </LABEL>
+
+<select class="input" id="ground" data-index="6" onkeydown='PressEnter(event)'>
+<option value="100">100%</option>
+<option value="98">98%</option>
+<option value="97">97%</option>
+<option value="95">95%</option>
+<option value="92">92%</option>
+<option value="90">90%</option>
+<option value="87">87%</option>
+<option value="85">85%</option>
+<option value="82">82%</option>
+<option value="80">80%</option>
+<option value="75">75%</option>
+<option value="70">70%</option>
+</select><br/>
+
+
+
+
+
+
+
+<LABEL class=label>스핀 : </LABEL><INPUT id=spin class=input> 
+<LABEL class=label>커브 : </LABEL><INPUT id=curve class=input> 
+<LABEL class=label>칸수변환 : </LABEL><INPUT id=aim class=input value=4> 
+
+<INPUT type=reset value="홀 정보 리셋" name=data> </DIV></FORM>
+<DIV style="grid-template-columns: 90px 120px auto">
+
+<BUTTON onclick=calc(this) style="HEIGHT: 40px; WIDTH: 250px"><B>
+<TEXT style="COLOR: green"><TEXT style="FONT-SIZE: 24px">계산</TEXT></B></BUTTON> </DIV></DIV>
+
+<SPAN style="MARGIN-TOP: 5px"><FONT id=result></FONT><BR></SPAN>
+<CENTER><RODAPE 
+style="FONT-SIZE: 15px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px"><B> 
+</RODAPE></CENTER></DIV>
+<SCRIPT src="smart_calculator.js"></SCRIPT>
+
+
+</html>
